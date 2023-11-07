@@ -1,13 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import MainLayout from 'views/MainLayout';
+import About from 'views/MainLayout/About';
+import Menu from 'views/MainLayout/Menu';
+import Reservations from 'views/MainLayout/Reservations';
+import OderOnline from 'views/MainLayout/OrderOnline';
+import Login from 'views/MainLayout/Login';
+import Home from 'views/MainLayout/Home';
+import { StateManager, StateProvider } from 'Contexts';
+
+const router = createBrowserRouter([
+  { 
+    path: "/",
+    element: <MainLayout/>,
+    children : [
+      {
+        path : "home",
+        element : <MainLayout/>
+      },
+      {
+        path: "about",
+        element : <About/>
+      },
+      {
+        path: "menu",
+        element : <Menu/>
+      },
+      {
+        path: "reservations",
+        element : <Reservations/>
+      },
+      {
+        path: "orderOnline",
+        element: <OderOnline/>
+      },
+      {
+        path: "login",
+        element: <Login/>
+      }
+    ]
+  },
+])
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <StateProvider>
+      <RouterProvider router={router}/>
+      </StateProvider>
   </React.StrictMode>
 );
 
